@@ -1,0 +1,158 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  CUSTOMER
+}
+
+enum Plan {
+  FREE
+  STARTER
+  PRO
+  ENTERPRISE
+}
+
+enum Trend {
+  UP
+  DOWN
+  STABLE
+}
+
+enum DiamondColor {
+  D
+  E
+  F
+  G
+  H
+  I
+  J
+  K
+  L
+  M
+}
+
+enum DiamondClarity {
+  FL
+  IF
+  VVS1
+  VVS2
+  VS1
+  VS2
+  SI1
+  SI2
+  I1
+  I2
+  I3
+}
+
+enum DiamondCut {
+  EXCELLENT
+  VERY_GOOD
+  GOOD
+  FAIR
+  POOR
+}
+
+enum Certificate {
+  GIA
+  IGI
+  HRD
+  NONE
+}
+
+model User {
+  id               String    @id @default(cuid())
+  name             String
+  email            String    @unique
+  password         String
+  role             Role      @default(CUSTOMER)
+  plan             Plan      @default(FREE)
+  stripeCustomerId String?   @unique
+  stripeSubId      String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  apiKeys    ApiKey[]
+  requests   Request[]
+  valuations DiamondValuation[]
+
+  @@map("users")
+}
+
+model ApiKey {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  name      String   @default("Default")
+  userId    String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  lastUsed  DateTime?
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  requests Request[]
+
+  @@index([userId])
+  @@map("api_keys")
+}
+
+model Request {
+  id          String   @id @default(cuid())
+  userId      String
+  apiKeyId    String?
+  endpoint    String
+  creditsUsed Int      @default(1)
+  statusCode  Int      @default(200)
+  createdAt   DateTime @default(now())
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  apiKey ApiKey? @relation(fields: [apiKeyId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([createdAt])
+  @@map("requests")
+}
+
+model DiamondValuation {
+  id             String         @id @default(cuid())
+  userId         String?
+  carat          Float
+  color          DiamondColor
+  clarity        DiamondClarity
+  cut            DiamondCut
+  certificate    Certificate
+  estimatedPrice Float
+  lowPrice       Float
+  highPrice      Float
+  confidence     Int
+  trend          Trend
+  investmentScore Int
+  createdAt      DateTime       @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([createdAt])
+  @@map("diamond_valuations")
+}
+
+model PricingRule {
+  id          String   @id @default(cuid())
+  name        String
+  category    String
+  key         String
+  multiplier  Float
+  description String?
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([category, key])
+  @@map("pricing_rules")
+}
