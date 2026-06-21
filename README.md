@@ -65,7 +65,7 @@ Open [http://localhost:3000](http://localhost:3000)
 
 | Role | Email | Password |
 |------|-------|----------|
-| Admin | admin@diamondiq.com | admin123! |
+| Admin | admin (or admin@admin.com) | admin |
 | Customer | demo@diamondiq.com | customer123! |
 
 **Demo API Key:** `diq_demo_key_for_testing_purposes_only`
