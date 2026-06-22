@@ -20,15 +20,15 @@ export function Logo({ className, showText = true, size = "md" }: LogoProps) {
     <Link href="/" className={cn("flex items-center gap-2.5", className)}>
       <div
         className={cn(
-          "flex items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent text-white shadow-lg shadow-primary/25",
+          "flex items-center justify-center rounded-md border border-border bg-foreground text-background",
           s.icon
         )}
       >
         <Gem className={s.gem} />
       </div>
       {showText && (
-        <span className={cn("font-bold tracking-tight text-foreground", s.text)}>
-          Diamond<span className="gradient-text">IQ</span>
+        <span className={cn("font-semibold tracking-tight text-foreground", s.text)}>
+          Diamond<span className="text-muted-foreground">IQ</span>
         </span>
       )}
     </Link>

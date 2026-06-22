@@ -26,7 +26,7 @@ const steps = [
 
 export function HowItWorksSection() {
   return (
-    <section id="how-it-works" className="border-t border-white/5 py-24 sm:py-32">
+    <section id="how-it-works" className="border-t border-border py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -34,16 +34,16 @@ export function HowItWorksSection() {
           viewport={{ once: true }}
           className="mx-auto max-w-2xl text-center"
         >
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
             How It Works
           </h2>
-          <p className="mt-4 text-lg text-slate-400">
+          <p className="mt-4 text-lg text-muted-foreground">
             Three steps from signup to live valuations in your application.
           </p>
         </motion.div>
 
         <div className="relative mt-16">
-          <div className="absolute left-0 right-0 top-16 hidden h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent lg:block" />
+          <div className="absolute left-0 right-0 top-16 hidden h-px bg-border lg:block" />
           <div className="grid gap-8 lg:grid-cols-3">
             {steps.map((step, i) => (
               <motion.div
@@ -54,14 +54,14 @@ export function HowItWorksSection() {
                 transition={{ delay: i * 0.15 }}
                 className="relative text-center"
               >
-                <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-[#111827] shadow-lg shadow-primary/10">
-                  <step.icon className="h-7 w-7 text-primary" />
+                <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-lg border border-border bg-card">
+                  <step.icon className="h-6 w-6 text-foreground" />
                 </div>
-                <span className="text-xs font-bold uppercase tracking-widest text-primary">
+                <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
                   Step {step.step}
                 </span>
-                <h3 className="mt-2 text-xl font-semibold text-white">{step.title}</h3>
-                <p className="mt-3 text-slate-400">{step.description}</p>
+                <h3 className="mt-2 text-xl font-semibold text-foreground">{step.title}</h3>
+                <p className="mt-3 text-muted-foreground">{step.description}</p>
               </motion.div>
             ))}
           </div>

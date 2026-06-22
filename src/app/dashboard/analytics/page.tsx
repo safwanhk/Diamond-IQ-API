@@ -122,7 +122,7 @@ export default function AnalyticsPage() {
                   <div className="flex items-center gap-2">
                     <div
                       className="h-2 w-2 rounded-full"
-                      style={{ background: ["#2563eb", "#06b6d4", "#22c55e", "#8b5cf6"][i] }}
+                      style={{ background: ["#0070f3", "#50e3c2", "#888888", "#ededed"][i] }}
                     />
                     <span>{d.name}</span>
                   </div>

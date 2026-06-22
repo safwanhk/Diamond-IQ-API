@@ -96,8 +96,8 @@ export function DashboardHeader({ user, onMenuClick, onSearchClick }: DashboardH
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-9 w-9 rounded-full p-0">
-              <Avatar className="h-8 w-8 ring-2 ring-primary/20">
-                <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-xs text-white">
+              <Avatar className="h-8 w-8 ring-2 ring-border">
+                <AvatarFallback className="bg-foreground text-xs text-background">
                   {initials}
                 </AvatarFallback>
               </Avatar>

@@ -2,13 +2,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import type { LucideIcon } from "lucide-react";
 
-const iconGradients = [
-  "from-primary/20 to-primary/5",
-  "from-accent/20 to-accent/5",
-  "from-success/20 to-success/5",
-  "from-violet-500/20 to-violet-500/5",
-];
-
 interface StatCardProps {
   title: string;
   value: string | number;
@@ -26,27 +19,19 @@ export function StatCard({
   icon: Icon,
   trend,
   className,
-  index = 0,
 }: StatCardProps) {
-  const gradient = iconGradients[index % iconGradients.length];
-
   return (
     <Card className={cn("group overflow-hidden", className)}>
       <CardHeader className="relative flex flex-row items-center justify-between pb-2">
         <CardTitle className="text-sm font-medium text-muted-foreground">{title}</CardTitle>
         {Icon && (
-          <div
-            className={cn(
-              "flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br",
-              gradient
-            )}
-          >
-            <Icon className="h-4 w-4 text-primary" />
+          <div className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-muted">
+            <Icon className="h-4 w-4 text-foreground" />
           </div>
         )}
       </CardHeader>
       <CardContent className="relative">
-        <div className="text-2xl font-bold tracking-tight text-foreground">{value}</div>
+        <div className="text-2xl font-semibold tracking-tight text-foreground">{value}</div>
         {description && (
           <p className="mt-1 text-xs text-muted-foreground">{description}</p>
         )}

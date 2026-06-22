@@ -31,7 +31,7 @@ export function FaqSection() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="border-t border-white/5 py-24 sm:py-32">
+    <section className="border-t border-border py-24 sm:py-32">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -39,12 +39,12 @@ export function FaqSection() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
             Frequently asked questions
           </h2>
         </motion.div>
 
-        <div className="mt-12 space-y-3">
+        <div className="mt-12 space-y-2">
           {faqs.map((faq, i) => (
             <motion.div
               key={i}
@@ -52,15 +52,15 @@ export function FaqSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="rounded-xl border border-white/10 bg-[#111827]/50 overflow-hidden"
+              className="overflow-hidden rounded-lg border border-border bg-card"
             >
               <button
                 className="flex w-full items-center justify-between px-5 py-4 text-left"
                 onClick={() => setOpen(open === i ? null : i)}
               >
-                <span className="font-medium text-white">{faq.q}</span>
+                <span className="font-medium text-foreground">{faq.q}</span>
                 <ChevronDown
-                  className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-200 ${
+                  className={`h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-200 ${
                     open === i ? "rotate-180" : ""
                   }`}
                 />
@@ -73,7 +73,7 @@ export function FaqSection() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <p className="border-t border-white/5 px-5 py-4 text-sm text-slate-400 leading-relaxed">
+                    <p className="border-t border-border px-5 py-4 text-sm leading-relaxed text-muted-foreground">
                       {faq.a}
                     </p>
                   </motion.div>

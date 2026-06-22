@@ -13,13 +13,13 @@ const brands = [
 
 export function TrustedBySection() {
   return (
-    <section className="border-y border-white/5 py-16">
+    <section className="border-y border-border py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mb-10 text-center text-sm font-medium uppercase tracking-widest text-slate-500"
+          className="mb-10 text-center text-sm font-medium uppercase tracking-widest text-muted-foreground"
         >
           Trusted by Jewelry Businesses
         </motion.p>
@@ -31,7 +31,7 @@ export function TrustedBySection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="text-lg font-semibold text-slate-600 transition-colors hover:text-slate-400"
+              className="text-lg font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               {brand}
             </motion.div>

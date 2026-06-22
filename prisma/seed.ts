@@ -85,6 +85,14 @@ async function main() {
   console.log("Admin login — email: admin (or admin@admin.com) / password: admin");
   console.log("Customer: demo@diamondiq.com / customer123!");
   console.log("API Key:", apiKey.key);
+
+  // Seed market listings if empty
+  const listingCount = await prisma.diamondListing.count();
+  if (listingCount === 0) {
+    const { scraperService } = await import("../src/services/scraper/scraper.service");
+    const result = await scraperService.runAll();
+    console.log(`Market seed: ${result.totalSaved} listings from ${result.sources.join(", ")}`);
+  }
 }
 
 main()

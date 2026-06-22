@@ -18,10 +18,10 @@ import {
 } from "recharts";
 
 const CHART_COLORS = {
-  primary: "#2563eb",
-  accent: "#06b6d4",
-  success: "#22c55e",
-  muted: "#64748b",
+  primary: "#0070f3",
+  accent: "#50e3c2",
+  success: "#50e3c2",
+  muted: "#888888",
 };
 
 interface ChartTooltipProps {
@@ -33,7 +33,7 @@ interface ChartTooltipProps {
 function ChartTooltip({ active, payload, label }: ChartTooltipProps) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="rounded-lg border border-white/[0.08] bg-[#111827] px-3 py-2 shadow-xl">
+    <div className="rounded-md border border-border bg-card px-3 py-2 shadow-md">
       <p className="mb-1 text-xs text-muted-foreground">{label}</p>
       <p className="text-sm font-semibold text-foreground">{payload[0].value.toLocaleString()}</p>
     </div>

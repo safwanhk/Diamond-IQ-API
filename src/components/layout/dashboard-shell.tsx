@@ -51,14 +51,7 @@ export function DashboardShell({
 
   return (
     <div className="relative flex min-h-screen bg-background">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-40"
-        style={{
-          background:
-            "radial-gradient(ellipse 50% 40% at 0% 0%, rgba(37,99,235,0.08), transparent), radial-gradient(ellipse 40% 30% at 100% 30%, rgba(6,182,212,0.06), transparent)",
-        }}
-      />
-      <div className="pointer-events-none absolute inset-0 grid-bg opacity-20" />
+      <div className="pointer-events-none absolute inset-0 grid-bg opacity-30" />
 
       <DashboardSidebar
         role={user.role}

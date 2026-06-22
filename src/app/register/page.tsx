@@ -46,7 +46,6 @@ export default function RegisterPage() {
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-4">
       <div className="absolute inset-0 grid-bg" />
-      <div className="absolute right-0 top-1/3 h-[400px] w-[400px] rounded-full bg-accent/10 blur-[100px]" />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}

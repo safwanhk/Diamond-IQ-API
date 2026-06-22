@@ -12,6 +12,7 @@ import {
   Settings,
   FileCode,
   Search,
+  TrendingUp,
 } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
@@ -19,6 +20,7 @@ const commands = [
   { label: "Overview", href: "/dashboard", icon: LayoutDashboard, group: "Navigation" },
   { label: "Usage Analytics", href: "/dashboard/analytics", icon: BarChart3, group: "Navigation" },
   { label: "Valuations", href: "/dashboard/valuations", icon: Gem, group: "Navigation" },
+  { label: "Market Data", href: "/dashboard/market", icon: TrendingUp, group: "Navigation" },
   { label: "API Keys", href: "/dashboard/api-keys", icon: Key, group: "Navigation" },
   { label: "Billing", href: "/dashboard/billing", icon: CreditCard, group: "Navigation" },
   { label: "Documentation", href: "/dashboard/docs", icon: BookOpen, group: "Navigation" },

@@ -1,55 +1,56 @@
 /**
  * DiamondIQ Design System
- * Dark-first premium SaaS tokens — inspired by Stripe, Linear, Vercel, Mercury
+ * Vercel-inspired tokens — monochrome, Geist, subtle borders
  */
 
 export const colors = {
-  background: "#0B1020",
-  foreground: "#F9FAFB",
-  card: "#111827",
-  cardForeground: "#F9FAFB",
-  primary: "#2563EB",
-  primaryForeground: "#FFFFFF",
-  accent: "#06B6D4",
+  background: "#000000",
+  foreground: "#EDEDED",
+  card: "#0A0A0A",
+  cardForeground: "#EDEDED",
+  primary: "#EDEDED",
+  primaryForeground: "#000000",
+  accent: "#0070F3",
   accentForeground: "#FFFFFF",
-  success: "#22C55E",
-  warning: "#F59E0B",
-  destructive: "#EF4444",
-  muted: "#1A2332",
-  mutedForeground: "#94A3B8",
-  border: "#1E293B",
-  sidebar: "#0A0F1A",
-  sidebarForeground: "#94A3B8",
-  sidebarActive: "rgba(37, 99, 235, 0.12)",
+  success: "#50E3C2",
+  warning: "#F5A623",
+  destructive: "#EE0000",
+  muted: "#171717",
+  mutedForeground: "#888888",
+  border: "#333333",
+  sidebar: "#000000",
+  sidebarForeground: "#888888",
+  sidebarActive: "#171717",
   chart: {
-    primary: "#2563EB",
-    accent: "#06B6D4",
-    success: "#22C55E",
-    grid: "#1E293B",
+    primary: "#0070F3",
+    accent: "#50E3C2",
+    success: "#50E3C2",
+    grid: "#333333",
   },
 } as const;
 
 export const spacing = {
-  xs: "0.25rem",   // 4px
-  sm: "0.5rem",    // 8px
-  md: "1rem",      // 16px
-  lg: "1.5rem",    // 24px
-  xl: "2rem",      // 32px
-  "2xl": "3rem",   // 48px
-  "3xl": "4rem",   // 64px
+  xs: "0.25rem",
+  sm: "0.5rem",
+  md: "1rem",
+  lg: "1.5rem",
+  xl: "2rem",
+  "2xl": "3rem",
+  "3xl": "4rem",
 } as const;
 
 export const radius = {
   sm: "0.375rem",
   md: "0.5rem",
-  lg: "0.75rem",
-  xl: "1rem",
-  "2xl": "1.25rem",
+  lg: "0.625rem",
+  xl: "0.75rem",
+  "2xl": "1rem",
   full: "9999px",
 } as const;
 
 export const typography = {
-  fontFamily: '"Inter", ui-sans-serif, system-ui, sans-serif',
+  fontFamily: 'var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif',
+  fontMono: 'var(--font-geist-mono), ui-monospace, monospace',
   fontSize: {
     xs: "0.75rem",
     sm: "0.875rem",
@@ -74,11 +75,11 @@ export const typography = {
 } as const;
 
 export const shadows = {
-  sm: "0 1px 2px rgba(0, 0, 0, 0.2)",
-  md: "0 4px 24px rgba(0, 0, 0, 0.25)",
-  lg: "0 8px 40px rgba(0, 0, 0, 0.35)",
-  glow: "0 0 40px rgba(37, 99, 235, 0.15)",
-  glowAccent: "0 0 60px rgba(6, 182, 212, 0.12)",
+  sm: "0 1px 2px rgba(0, 0, 0, 0.4)",
+  md: "0 4px 12px rgba(0, 0, 0, 0.5)",
+  lg: "0 8px 24px rgba(0, 0, 0, 0.6)",
+  glow: "0 0 0 1px #333333",
+  glowAccent: "0 0 0 1px rgba(0, 112, 243, 0.4)",
 } as const;
 
 export const animation = {
@@ -88,7 +89,6 @@ export const animation = {
   spring: { type: "spring" as const, bounce: 0.2, duration: 0.4 },
 } as const;
 
-/** CSS custom property map for injection */
 export const cssVariables: Record<string, string> = {
   "--color-background": colors.background,
   "--color-foreground": colors.foreground,
@@ -107,6 +107,7 @@ export const cssVariables: Record<string, string> = {
   "--color-sidebar-active": colors.sidebarActive,
   "--color-destructive": colors.destructive,
   "--font-sans": typography.fontFamily,
+  "--font-mono": typography.fontMono,
   "--radius-lg": radius.lg,
   "--radius-xl": radius.xl,
 };

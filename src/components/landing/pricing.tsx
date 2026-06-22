@@ -51,7 +51,7 @@ const plans = [
 
 export function PricingSection() {
   return (
-    <section id="pricing" className="border-t border-white/5 py-24 sm:py-32">
+    <section id="pricing" className="border-t border-border py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -59,15 +59,15 @@ export function PricingSection() {
           viewport={{ once: true }}
           className="mx-auto max-w-2xl text-center"
         >
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
             Simple, transparent pricing
           </h2>
-          <p className="mt-4 text-lg text-slate-400">
+          <p className="mt-4 text-lg text-muted-foreground">
             Start free. Scale as you grow. No hidden fees.
           </p>
         </motion.div>
 
-        <div className="mt-16 grid gap-8 lg:grid-cols-3">
+        <div className="mt-16 grid gap-4 lg:grid-cols-3">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.name}
@@ -77,30 +77,28 @@ export function PricingSection() {
               transition={{ delay: i * 0.1 }}
             >
               <Card
-                className={`relative h-full border-white/10 bg-[#111827]/50 backdrop-blur-sm ${
-                  plan.highlight
-                    ? "border-primary/50 shadow-xl shadow-primary/10 ring-1 ring-primary/20"
-                    : ""
+                className={`relative h-full ${
+                  plan.highlight ? "border-foreground/20" : ""
                 }`}
               >
                 {plan.highlight && (
-                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2" variant="accent">
+                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2">
                     Most Popular
                   </Badge>
                 )}
                 <CardHeader>
-                  <CardTitle className="text-white">{plan.name}</CardTitle>
-                  <CardDescription className="text-slate-400">{plan.description}</CardDescription>
+                  <CardTitle>{plan.name}</CardTitle>
+                  <CardDescription>{plan.description}</CardDescription>
                   <div className="mt-4">
-                    <span className="text-4xl font-bold text-white">{plan.price}</span>
-                    <span className="text-slate-500">{plan.period}</span>
+                    <span className="text-4xl font-semibold tracking-tight text-foreground">{plan.price}</span>
+                    <span className="text-muted-foreground">{plan.period}</span>
                   </div>
-                  <p className="text-sm text-slate-400">{plan.requests}</p>
+                  <p className="text-sm text-muted-foreground">{plan.requests}</p>
                 </CardHeader>
                 <CardContent>
                   <ul className="mb-8 space-y-3">
                     {plan.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm text-slate-300">
+                      <li key={f} className="flex items-start gap-2 text-sm text-foreground/80">
                         <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
                         {f}
                       </li>
@@ -108,7 +106,7 @@ export function PricingSection() {
                   </ul>
                   <Button
                     className="w-full"
-                    variant={plan.highlight ? "accent" : "outline"}
+                    variant={plan.highlight ? "default" : "outline"}
                     asChild
                   >
                     <Link href="/register">Get Started</Link>

@@ -42,8 +42,6 @@ export function HeroSection() {
   return (
     <section className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28">
       <div className="absolute inset-0 grid-bg" />
-      <div className="absolute left-1/2 top-0 h-[600px] w-[800px] -translate-x-1/2 rounded-full bg-primary/10 blur-[120px]" />
-      <div className="absolute right-0 top-1/3 h-[400px] w-[400px] rounded-full bg-accent/10 blur-[100px]" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
@@ -52,34 +50,34 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Badge variant="accent" className="mb-6 border-accent/20 bg-accent/10 text-accent">
+            <Badge variant="secondary" className="mb-6">
               <Sparkles className="mr-1.5 h-3 w-3" />
               Trusted by 500+ jewelry businesses
             </Badge>
-            <h1 className="text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <h1 className="text-4xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
               Get Real-Time Diamond Valuations Through{" "}
-              <span className="gradient-text">One API</span>
+              <span className="text-muted-foreground">One API</span>
             </h1>
-            <p className="mt-6 max-w-lg text-lg text-slate-400">
+            <p className="mt-6 max-w-lg text-lg text-muted-foreground">
               Power your jewelry store, marketplace, or e-commerce platform with
               institutional-grade diamond pricing, confidence scores, and market trends.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Button size="lg" variant="accent" asChild>
+              <Button size="lg" asChild>
                 <Link href="/register">
                   Start Free Trial <ArrowRight className="ml-1 h-4 w-4" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-white/10 text-white hover:bg-white/5" asChild>
+              <Button size="lg" variant="outline" asChild>
                 <Link href="/docs">View API Docs</Link>
               </Button>
             </div>
-            <div className="mt-10 flex flex-wrap gap-6 text-sm text-slate-500">
+            <div className="mt-10 flex flex-wrap gap-6 text-sm text-muted-foreground">
               <span className="flex items-center gap-2">
                 <Shield className="h-4 w-4 text-success" /> SOC 2 Ready
               </span>
               <span className="flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-accent" /> 99.9% Uptime
+                <TrendingUp className="h-4 w-4" /> 99.9% Uptime
               </span>
               <span>&lt;100ms response</span>
             </div>
@@ -91,31 +89,31 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative"
           >
-            <div className="glow-primary rounded-2xl border border-white/10 bg-[#111827]/80 p-1 backdrop-blur-xl">
-              <div className="rounded-xl bg-[#0B1020] p-4">
+            <div className="rounded-lg border border-border bg-card p-1">
+              <div className="rounded-md bg-background p-4">
                 <div className="mb-3 flex items-center gap-2">
                   <div className="h-3 w-3 rounded-full bg-red-500/80" />
                   <div className="h-3 w-3 rounded-full bg-yellow-500/80" />
                   <div className="h-3 w-3 rounded-full bg-green-500/80" />
-                  <span className="ml-2 text-xs text-slate-500">api.diamondiq.com</span>
+                  <span className="ml-2 font-mono text-xs text-muted-foreground">api.diamondiq.com</span>
                 </div>
-                <pre className="overflow-x-auto text-xs leading-relaxed text-slate-300 sm:text-sm">
-                  <span className="text-slate-500">POST</span>{" "}
+                <pre className="overflow-x-auto font-mono text-xs leading-relaxed text-foreground/80 sm:text-sm">
+                  <span className="text-muted-foreground">POST</span>{" "}
                   <span className="text-accent">/api/v1/valuation</span>
                   {"\n\n"}
-                  <span className="text-purple-400">{"{"}</span>
+                  <span className="text-foreground/60">{"{"}</span>
                   {"\n  "}
-                  <span className="text-cyan-400">&quot;carat&quot;</span>:{" "}
-                  <span className="text-amber-400">1.2</span>,
+                  <span className="text-accent">&quot;carat&quot;</span>:{" "}
+                  <span className="text-foreground">1.2</span>,
                   {"\n  "}
-                  <span className="text-cyan-400">&quot;color&quot;</span>:{" "}
-                  <span className="text-green-400">&quot;D&quot;</span>,
+                  <span className="text-accent">&quot;color&quot;</span>:{" "}
+                  <span className="text-foreground">&quot;D&quot;</span>,
                   {"\n  "}
-                  <span className="text-cyan-400">&quot;clarity&quot;</span>:{" "}
-                  <span className="text-green-400">&quot;VVS1&quot;</span>
+                  <span className="text-accent">&quot;clarity&quot;</span>:{" "}
+                  <span className="text-foreground">&quot;VVS1&quot;</span>
                   {typing ? "|" : ""}
                   {"\n"}
-                  <span className="text-purple-400">{"}"}</span>
+                  <span className="text-foreground/60">{"}"}</span>
                 </pre>
               </div>
             </div>
@@ -124,10 +122,10 @@ export function HeroSection() {
               initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
-              className="absolute -bottom-6 -left-4 rounded-xl border border-white/10 bg-[#111827] p-4 shadow-2xl sm:-left-8"
+              className="absolute -bottom-6 -left-4 rounded-lg border border-border bg-card p-4 sm:-left-8"
             >
-              <p className="text-xs text-slate-500">Live Valuation</p>
-              <p className="text-2xl font-bold text-white">
+              <p className="text-xs text-muted-foreground">Live Valuation</p>
+              <p className="text-2xl font-semibold tracking-tight text-foreground">
                 ${price.toLocaleString()}
               </p>
               <div className="mt-1 flex items-center gap-2">
@@ -142,14 +140,14 @@ export function HeroSection() {
               initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1 }}
-              className="absolute -right-2 -top-4 rounded-xl border border-white/10 bg-[#111827] p-3 shadow-xl sm:-right-6"
+              className="absolute -right-2 -top-4 rounded-lg border border-border bg-card p-3 sm:-right-6"
             >
               <div className="flex items-center gap-2">
                 <div className="h-2 w-2 animate-pulse rounded-full bg-success" />
-                <span className="text-xs text-slate-400">API Online</span>
+                <span className="text-xs text-muted-foreground">API Online</span>
               </div>
-              <p className="mt-1 text-lg font-semibold text-white">47ms</p>
-              <p className="text-[10px] text-slate-500">avg response</p>
+              <p className="mt-1 text-lg font-semibold text-foreground">47ms</p>
+              <p className="text-[10px] text-muted-foreground">avg response</p>
             </motion.div>
           </motion.div>
         </div>

@@ -15,6 +15,7 @@ import {
   LogOut,
   X,
   FileCode,
+  TrendingUp,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/ui/logo";
@@ -24,6 +25,7 @@ const customerLinks = [
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
   { href: "/dashboard/analytics", label: "Usage Analytics", icon: BarChart3 },
   { href: "/dashboard/valuations", label: "Valuations", icon: Gem },
+  { href: "/dashboard/market", label: "Market Data", icon: TrendingUp },
   { href: "/dashboard/api-keys", label: "API Keys", icon: Key },
   { href: "/playground", label: "Playground", icon: FileCode },
   { href: "/dashboard/billing", label: "Billing", icon: CreditCard },
@@ -85,25 +87,25 @@ export function DashboardSidebar({
               className={cn(
                 "group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
                 active
-                  ? "text-primary"
-                  : "text-sidebar-foreground hover:bg-white/[0.04] hover:text-foreground"
+                  ? "text-foreground"
+                  : "text-sidebar-foreground hover:bg-muted hover:text-foreground"
               )}
             >
               {active && (
-                <div className="absolute inset-0 rounded-lg border border-primary/20 bg-sidebar-active" />
+                <div className="absolute inset-0 rounded-lg border border-border bg-sidebar-active" />
               )}
               {active && (
-                <div className="absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-primary" />
+                <div className="absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-foreground" />
               )}
-              <Icon className={cn("relative h-4 w-4", active ? "text-primary" : "text-muted-foreground group-hover:text-foreground")} />
+              <Icon className={cn("relative h-4 w-4", active ? "text-foreground" : "text-muted-foreground group-hover:text-foreground")} />
               <span className="relative">{link.label}</span>
             </Link>
           );
         })}
       </nav>
 
-      <div className="border-t border-white/[0.06] p-4">
-        <div className="mb-3 rounded-lg border border-white/[0.06] bg-white/[0.03] px-3 py-2.5">
+      <div className="border-t border-border p-4">
+        <div className="mb-3 rounded-lg border border-border bg-muted px-3 py-2.5">
           <p className="truncate text-sm font-medium text-foreground">{userName}</p>
           <p className="text-xs text-muted-foreground">
             {role === "ADMIN" ? "Administrator" : "Customer"}

@@ -46,32 +46,27 @@ export function ApiExampleSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <Badge variant="accent" className="mb-4 border-accent/20 bg-accent/10 text-accent">
+            <Badge variant="secondary" className="mb-4">
               Interactive Demo
             </Badge>
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
               One endpoint. Complete valuation data.
             </h2>
-            <p className="mt-4 text-lg text-slate-400">
+            <p className="mt-4 text-lg text-muted-foreground">
               Send diamond specifications and receive institutional-grade pricing in milliseconds.
               Try the live demo or explore our interactive playground.
             </p>
             <ul className="mt-6 space-y-3">
               {["RESTful JSON API", "OpenAPI 3.0 specification", "Webhook notifications", "Batch valuation support"].map(
                 (item) => (
-                  <li key={item} className="flex items-center gap-2 text-sm text-slate-300">
+                  <li key={item} className="flex items-center gap-2 text-sm text-foreground/80">
                     <Check className="h-4 w-4 text-success" />
                     {item}
                   </li>
                 )
               )}
             </ul>
-            <Button
-              className="mt-8"
-              variant="accent"
-              onClick={runDemo}
-              disabled={running}
-            >
+            <Button className="mt-8" onClick={runDemo} disabled={running}>
               <Play className="mr-2 h-4 w-4" />
               {running ? "Running..." : "Run Live Demo"}
             </Button>
@@ -83,24 +78,24 @@ export function ApiExampleSection() {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <div className="rounded-xl border border-white/10 bg-[#111827] overflow-hidden">
-              <div className="flex items-center gap-2 border-b border-white/5 px-4 py-2.5">
+            <div className="overflow-hidden rounded-lg border border-border bg-card">
+              <div className="flex items-center gap-2 border-b border-border px-4 py-2.5">
                 <Badge variant="secondary" className="text-[10px]">REQUEST</Badge>
-                <span className="text-xs text-slate-500">POST /api/v1/valuation</span>
+                <span className="font-mono text-xs text-muted-foreground">POST /api/v1/valuation</span>
               </div>
-              <pre className="overflow-x-auto p-4 text-xs leading-relaxed text-slate-300 sm:text-sm">
+              <pre className="overflow-x-auto p-4 font-mono text-xs leading-relaxed text-foreground/80 sm:text-sm">
                 {requestBody}
               </pre>
             </div>
 
             <motion.div
               animate={{ opacity: showResponse ? 1 : 0.4 }}
-              className="rounded-xl border border-white/10 bg-[#111827] overflow-hidden"
+              className="overflow-hidden rounded-lg border border-border bg-card"
             >
-              <div className="flex items-center justify-between border-b border-white/5 px-4 py-2.5">
+              <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
                 <div className="flex items-center gap-2">
                   <Badge variant="success" className="text-[10px]">200 OK</Badge>
-                  <span className="text-xs text-slate-500">47ms</span>
+                  <span className="font-mono text-xs text-muted-foreground">47ms</span>
                 </div>
                 {showResponse && (
                   <motion.span
@@ -112,7 +107,7 @@ export function ApiExampleSection() {
                   </motion.span>
                 )}
               </div>
-              <pre className="overflow-x-auto p-4 text-xs leading-relaxed text-emerald-400 sm:text-sm">
+              <pre className="overflow-x-auto p-4 font-mono text-xs leading-relaxed text-success sm:text-sm">
                 {showResponse ? responseBody : "// Click 'Run Live Demo' to see response"}
               </pre>
             </motion.div>

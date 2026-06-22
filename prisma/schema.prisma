@@ -156,3 +156,59 @@ model PricingRule {
   @@unique([category, key])
   @@map("pricing_rules")
 }
+
+enum MarketplaceSource {
+  BLUE_NILE
+  JAMES_ALLEN
+  BRILLIANT_EARTH
+  RITANI
+  RARE_CARAT
+  SYNTHETIC
+  OTHER
+}
+
+enum ScraperRunStatus {
+  RUNNING
+  COMPLETED
+  FAILED
+}
+
+model ScraperRun {
+  id          String           @id @default(cuid())
+  status      ScraperRunStatus @default(RUNNING)
+  sources     String
+  totalFound  Int              @default(0)
+  totalSaved  Int              @default(0)
+  error       String?
+  startedAt   DateTime         @default(now())
+  completedAt DateTime?
+
+  listings DiamondListing[]
+
+  @@index([startedAt])
+  @@map("scraper_runs")
+}
+
+model DiamondListing {
+  id          String            @id @default(cuid())
+  externalId  String?
+  source      MarketplaceSource
+  carat       Float
+  color       DiamondColor
+  clarity     DiamondClarity
+  cut         DiamondCut
+  certificate Certificate
+  price       Float
+  currency    String            @default("USD")
+  listingUrl  String?
+  scrapedAt   DateTime          @default(now())
+  batchId     String
+
+  batch ScraperRun @relation(fields: [batchId], references: [id], onDelete: Cascade)
+
+  @@index([source])
+  @@index([scrapedAt])
+  @@index([batchId])
+  @@index([carat, color, clarity])
+  @@map("diamond_listings")
+}
