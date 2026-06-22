@@ -12,15 +12,17 @@ import {
   Settings,
   FileCode,
   Search,
-  TrendingUp,
 } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 const commands = [
   { label: "Overview", href: "/dashboard", icon: LayoutDashboard, group: "Navigation" },
-  { label: "Usage Analytics", href: "/dashboard/analytics", icon: BarChart3, group: "Navigation" },
+  { label: "Diamonds", href: "/dashboard/diamonds", icon: Gem, group: "Assets" },
+  { label: "Gold", href: "/dashboard/gold", icon: Gem, group: "Assets" },
+  { label: "Watches", href: "/dashboard/watches", icon: Gem, group: "Assets" },
   { label: "Valuations", href: "/dashboard/valuations", icon: Gem, group: "Navigation" },
-  { label: "Market Data", href: "/dashboard/market", icon: TrendingUp, group: "Navigation" },
+  { label: "Market Data", href: "/dashboard/market", icon: BarChart3, group: "Navigation" },
+  { label: "Analytics", href: "/dashboard/analytics", icon: BarChart3, group: "Navigation" },
   { label: "API Keys", href: "/dashboard/api-keys", icon: Key, group: "Navigation" },
   { label: "Billing", href: "/dashboard/billing", icon: CreditCard, group: "Navigation" },
   { label: "Documentation", href: "/dashboard/docs", icon: BookOpen, group: "Navigation" },

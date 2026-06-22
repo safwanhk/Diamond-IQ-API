@@ -116,6 +116,22 @@ function calculateInvestmentScore(
   return Math.min(99, Math.max(20, score));
 }
 
+function calculateMarketDemand(input: ValuationInput): number {
+  let score = 65;
+  if (["D", "E", "F"].includes(input.color)) score += 15;
+  if (input.carat >= 1 && input.carat <= 2) score += 12;
+  if (input.certificate === "GIA") score += 8;
+  return Math.min(99, score);
+}
+
+function calculateLiquidity(input: ValuationInput): number {
+  let score = 70;
+  if (input.carat >= 0.5 && input.carat <= 3) score += 15;
+  if (["VS1", "VS2", "SI1", "VVS1", "VVS2"].includes(input.clarity)) score += 10;
+  if (input.cut === "Excellent") score += 5;
+  return Math.min(99, score);
+}
+
 export class ValuationService {
   evaluate(input: ValuationInput): ValuationResult {
     const caratMultiplier = getCaratMultiplier(input.carat);
@@ -143,6 +159,8 @@ export class ValuationService {
     const confidence = calculateConfidence(input);
     const trend = calculateTrend(input);
     const investmentScore = calculateInvestmentScore(input, estimatedPrice);
+    const marketDemandScore = calculateMarketDemand(input);
+    const liquidityScore = calculateLiquidity(input);
 
     return {
       estimatedPrice,
@@ -151,6 +169,21 @@ export class ValuationService {
       confidence,
       trend,
       investmentScore,
+      marketDemandScore,
+      liquidityScore,
+    };
+  }
+
+  toAssetResult(result: ValuationResult): import("@/types/assets").AssetValuationResult {
+    return {
+      estimatedValue: result.estimatedPrice,
+      lowPrice: result.lowPrice,
+      highPrice: result.highPrice,
+      confidence: result.confidence,
+      trend: result.trend,
+      investmentScore: result.investmentScore,
+      marketDemandScore: result.marketDemandScore ?? 70,
+      liquidityScore: result.liquidityScore ?? 75,
     };
   }
 

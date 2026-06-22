@@ -5,9 +5,9 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "DiamondIQ — Real-Time Diamond Valuation API",
+  title: "Luxora API — Luxury Asset Intelligence Platform",
   description:
-    "Get real-time diamond valuations through one API. Financial-grade pricing for jewelry businesses, marketplaces, and insurers.",
+    "Real-time valuation, pricing intelligence, and market analytics for diamonds, gold, and luxury watches. The Bloomberg for luxury assets.",
 };
 
 export default function RootLayout({

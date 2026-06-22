@@ -16,6 +16,9 @@ import {
   X,
   FileCode,
   TrendingUp,
+  Coins,
+  Watch,
+  FileText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/ui/logo";
@@ -23,11 +26,14 @@ import { Button } from "@/components/ui/button";
 
 const customerLinks = [
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
-  { href: "/dashboard/analytics", label: "Usage Analytics", icon: BarChart3 },
-  { href: "/dashboard/valuations", label: "Valuations", icon: Gem },
+  { href: "/dashboard/diamonds", label: "Diamonds", icon: Gem },
+  { href: "/dashboard/gold", label: "Gold", icon: Coins },
+  { href: "/dashboard/watches", label: "Watches", icon: Watch },
+  { href: "/dashboard/valuations", label: "Valuations", icon: FileText },
   { href: "/dashboard/market", label: "Market Data", icon: TrendingUp },
-  { href: "/dashboard/api-keys", label: "API Keys", icon: Key },
+  { href: "/dashboard/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/playground", label: "Playground", icon: FileCode },
+  { href: "/dashboard/api-keys", label: "API Keys", icon: Key },
   { href: "/dashboard/billing", label: "Billing", icon: CreditCard },
   { href: "/dashboard/docs", label: "Documentation", icon: BookOpen },
   { href: "/dashboard/settings", label: "Settings", icon: Settings },

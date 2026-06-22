@@ -50,13 +50,13 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Badge variant="secondary" className="mb-6">
+            <Badge variant="secondary" className="mb-6 border-[#C9A227]/30 bg-[#C9A227]/10 text-[#C9A227]">
               <Sparkles className="mr-1.5 h-3 w-3" />
-              Trusted by 500+ jewelry businesses
+              Luxury Asset Intelligence Platform
             </Badge>
             <h1 className="text-4xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              Get Real-Time Diamond Valuations Through{" "}
-              <span className="text-muted-foreground">One API</span>
+              Real-Time Valuations for{" "}
+              <span className="text-[#C9A227]">Diamonds, Gold & Watches</span>
             </h1>
             <p className="mt-6 max-w-lg text-lg text-muted-foreground">
               Power your jewelry store, marketplace, or e-commerce platform with

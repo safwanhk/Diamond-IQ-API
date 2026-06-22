@@ -1,9 +1,9 @@
 export const openApiSpec = {
   openapi: "3.0.3",
   info: {
-    title: "DiamondIQ API",
+    title: "Luxora API",
     description:
-      "REST API for instant diamond market valuation. Used by jewelry stores, diamond traders, marketplaces, and e-commerce websites.",
+      "Luxury Asset Intelligence Platform — real-time valuation for diamonds, gold, and luxury watches.",
     version: "1.0.0",
     contact: {
       name: "DiamondIQ Support",

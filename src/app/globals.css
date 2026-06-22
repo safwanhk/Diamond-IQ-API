@@ -10,9 +10,9 @@
   --color-foreground: #ededed;
   --color-card: #0a0a0a;
   --color-card-foreground: #ededed;
-  --color-primary: #ededed;
-  --color-primary-foreground: #000000;
-  --color-accent: #0070f3;
+  --color-primary: #c9a227;
+  --color-primary-foreground: #0a0a0a;
+  --color-accent: #e8d5a3;
   --color-accent-foreground: #ffffff;
   --color-success: #50e3c2;
   --color-muted: #171717;
@@ -54,8 +54,8 @@
   --color-foreground: #ededed;
   --color-card: #0a0a0a;
   --color-card-foreground: #ededed;
-  --color-primary: #ededed;
-  --color-primary-foreground: #000000;
+  --color-primary: #c9a227;
+  --color-primary-foreground: #0a0a0a;
   --color-muted: #171717;
   --color-muted-foreground: #888888;
   --color-border: #333333;

@@ -7,6 +7,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum AssetType {
+  DIAMOND
+  GOLD
+  WATCH
+}
+
+enum GoldPurity {
+  K24
+  K22
+  K18
+  K14
+  K10
+}
+
+enum GoldUnit {
+  GRAM
+  OUNCE
+  KILOGRAM
+}
+
+enum WatchBrand {
+  ROLEX
+  PATEK_PHILIPPE
+  AUDEMARS_PIGUET
+  OMEGA
+  CARTIER
+  RICHARD_MILLE
+  OTHER
+}
+
+enum WatchCondition {
+  NEW
+  EXCELLENT
+  VERY_GOOD
+  GOOD
+  FAIR
+}
+
 enum Role {
   ADMIN
   CUSTOMER
@@ -79,9 +117,11 @@ model User {
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
 
-  apiKeys    ApiKey[]
-  requests   Request[]
-  valuations DiamondValuation[]
+  apiKeys         ApiKey[]
+  requests        Request[]
+  valuations      DiamondValuation[]
+  goldValuations  GoldValuation[]
+  watchValuations WatchValuation[]
 
   @@map("users")
 }
@@ -132,14 +172,67 @@ model DiamondValuation {
   highPrice      Float
   confidence     Int
   trend          Trend
-  investmentScore Int
-  createdAt      DateTime       @default(now())
+  investmentScore   Int
+  marketDemandScore Int            @default(70)
+  liquidityScore    Int            @default(70)
+  createdAt         DateTime       @default(now())
 
   user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@index([userId])
   @@index([createdAt])
   @@map("diamond_valuations")
+}
+
+model GoldValuation {
+  id                String     @id @default(cuid())
+  userId            String?
+  weight            Float
+  purity            GoldPurity
+  unit              GoldUnit
+  spotValue         Float
+  retailValue       Float
+  lowPrice          Float
+  highPrice         Float
+  confidence        Int
+  trend             Trend
+  investmentScore   Int
+  marketDemandScore Int
+  liquidityScore    Int
+  createdAt         DateTime   @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([createdAt])
+  @@map("gold_valuations")
+}
+
+model WatchValuation {
+  id                String         @id @default(cuid())
+  userId            String?
+  brand             WatchBrand
+  model             String
+  referenceNumber   String?
+  condition         WatchCondition
+  year              Int?
+  boxAndPapers      Boolean        @default(false)
+  estimatedValue    Float
+  resaleValue       Float
+  lowPrice          Float
+  highPrice         Float
+  confidence        Int
+  trend             Trend
+  investmentScore   Int
+  marketDemandScore Int
+  liquidityScore    Int
+  createdAt         DateTime       @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([createdAt])
+  @@map("watch_valuations")
 }
 
 model PricingRule {

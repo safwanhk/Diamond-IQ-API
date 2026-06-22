@@ -7,27 +7,25 @@ import {
 } from "@/lib/api-middleware";
 import { valuationService } from "@/services/valuation.service";
 import { valuationRepository } from "@/repositories/valuation.repository";
-import { valuationInputSchema } from "@/types";
+import { diamondInputSchema } from "@/types/assets";
 
 export async function POST(request: NextRequest) {
   const auth = await authenticateApiRequest(request);
   if ("error" in auth) return auth.error;
 
+  const endpoint = "/api/v1/diamonds/valuation";
+
   try {
     const body = await request.json();
-    const parsed = valuationInputSchema.safeParse(body);
+    const parsed = diamondInputSchema.safeParse(body);
 
     if (!parsed.success) {
-      await logRequest(auth.context, "/api/v1/valuation", 400);
-      return errorResponse(
-        "Invalid input",
-        "VALIDATION_ERROR",
-        400,
-        parsed.error.flatten()
-      );
+      await logRequest(auth.context, endpoint, 400);
+      return errorResponse("Invalid input", "VALIDATION_ERROR", 400, parsed.error.flatten());
     }
 
     const result = valuationService.evaluate(parsed.data);
+    const asset = valuationService.toAssetResult(result);
     const enums = valuationService.toPrismaEnums(parsed.data);
 
     await valuationRepository.create({
@@ -40,20 +38,14 @@ export async function POST(request: NextRequest) {
       confidence: result.confidence,
       trend: result.trend,
       investmentScore: result.investmentScore,
-      marketDemandScore: result.marketDemandScore,
-      liquidityScore: result.liquidityScore,
+      marketDemandScore: result.marketDemandScore ?? 70,
+      liquidityScore: result.liquidityScore ?? 75,
     });
 
-    await logRequest(auth.context, "/api/v1/valuation", 200);
-    return jsonResponse({
-      ...result,
-      ...valuationService.toAssetResult(result),
-      assetType: "diamond",
-    });
-  } catch (err) {
-    const { logError } = await import("@/lib/error-monitor");
-    logError("Valuation request failed", { error: String(err) });
-    await logRequest(auth.context, "/api/v1/valuation", 500);
+    await logRequest(auth.context, endpoint, 200);
+    return jsonResponse({ assetType: "diamond", ...asset });
+  } catch {
+    await logRequest(auth.context, endpoint, 500);
     return errorResponse("Internal server error", "INTERNAL_ERROR", 500);
   }
 }

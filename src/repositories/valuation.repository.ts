@@ -15,9 +15,15 @@ export class ValuationRepository {
     confidence: number;
     trend: Trend;
     investmentScore: number;
+    marketDemandScore?: number;
+    liquidityScore?: number;
   }) {
     return prisma.diamondValuation.create({
-      data: data as Parameters<typeof prisma.diamondValuation.create>[0]["data"],
+      data: {
+        ...data,
+        marketDemandScore: data.marketDemandScore ?? 70,
+        liquidityScore: data.liquidityScore ?? 75,
+      } as Parameters<typeof prisma.diamondValuation.create>[0]["data"],
     });
   }
 

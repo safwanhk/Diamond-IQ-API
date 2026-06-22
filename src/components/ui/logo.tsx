@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Gem } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
@@ -10,9 +9,9 @@ interface LogoProps {
 
 export function Logo({ className, showText = true, size = "md" }: LogoProps) {
   const sizes = {
-    sm: { icon: "h-7 w-7", gem: "h-3.5 w-3.5", text: "text-sm" },
-    md: { icon: "h-8 w-8", gem: "h-4 w-4", text: "text-base" },
-    lg: { icon: "h-10 w-10", gem: "h-5 w-5", text: "text-lg" },
+    sm: { icon: "h-7 w-7", text: "text-sm" },
+    md: { icon: "h-8 w-8", text: "text-base" },
+    lg: { icon: "h-10 w-10", text: "text-lg" },
   };
   const s = sizes[size];
 
@@ -20,15 +19,15 @@ export function Logo({ className, showText = true, size = "md" }: LogoProps) {
     <Link href="/" className={cn("flex items-center gap-2.5", className)}>
       <div
         className={cn(
-          "flex items-center justify-center rounded-md border border-border bg-foreground text-background",
+          "flex items-center justify-center rounded-md bg-gradient-to-br from-[#C9A227] to-[#8B6914] font-bold text-black shadow-lg shadow-[#C9A227]/20",
           s.icon
         )}
       >
-        <Gem className={s.gem} />
+        <span className="text-xs font-black tracking-tighter">LX</span>
       </div>
       {showText && (
         <span className={cn("font-semibold tracking-tight text-foreground", s.text)}>
-          Diamond<span className="text-muted-foreground">IQ</span>
+          Luxora<span className="text-[#C9A227]">API</span>
         </span>
       )}
     </Link>
