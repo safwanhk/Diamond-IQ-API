@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   LayoutDashboard,
   Key,
@@ -25,6 +25,7 @@ const customerLinks = [
   { href: "/dashboard/analytics", label: "Usage Analytics", icon: BarChart3 },
   { href: "/dashboard/valuations", label: "Valuations", icon: Gem },
   { href: "/dashboard/api-keys", label: "API Keys", icon: Key },
+  { href: "/playground", label: "Playground", icon: FileCode },
   { href: "/dashboard/billing", label: "Billing", icon: CreditCard },
   { href: "/dashboard/docs", label: "Documentation", icon: BookOpen },
   { href: "/dashboard/settings", label: "Settings", icon: Settings },
@@ -89,11 +90,7 @@ export function DashboardSidebar({
               )}
             >
               {active && (
-                <motion.div
-                  layoutId="sidebar-active"
-                  className="absolute inset-0 rounded-lg border border-primary/20 bg-sidebar-active"
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
-                />
+                <div className="absolute inset-0 rounded-lg border border-primary/20 bg-sidebar-active" />
               )}
               {active && (
                 <div className="absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-primary" />

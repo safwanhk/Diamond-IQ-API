@@ -79,14 +79,12 @@ body {
   font-family: var(--font-sans);
 }
 
-/* Premium dashboard card */
+/* Premium dashboard card — solid bg, no backdrop-filter (GPU-friendly) */
 .dashboard-card {
   border-radius: 0.75rem;
   border: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(17, 24, 39, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+  background: var(--color-card);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .light .dashboard-card {
@@ -96,9 +94,7 @@ body {
 }
 
 .glass {
-  background: rgba(17, 24, 39, 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: var(--color-card);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 

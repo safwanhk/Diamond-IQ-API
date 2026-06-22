@@ -50,7 +50,7 @@ export async function getSessionFromRequest(
 }
 
 export function generateApiKey(): string {
-  const prefix = "diq_";
+  const prefix = "sk_live_";
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let key = prefix;
   for (let i = 0; i < 32; i++) {

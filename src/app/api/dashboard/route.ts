@@ -16,11 +16,22 @@ export async function GET() {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
 
-  const [usage, apiKeys, recentRequests, dailyUsage] = await Promise.all([
+  const [
+    usage,
+    apiKeys,
+    recentRequests,
+    dailyUsage,
+    requestsToday,
+    requestsThisWeek,
+    successRate,
+  ] = await Promise.all([
     usageService.getUsageStats(user.id, user.plan),
     apiKeyRepository.findByUserId(user.id),
     requestRepository.findByUserId(user.id, 10),
     usageService.getDailyUsage(user.id),
+    usageService.getTodayUsage(user.id),
+    usageService.getWeekUsage(user.id),
+    usageService.getSuccessRate(user.id),
   ]);
 
   return NextResponse.json({
@@ -42,5 +53,12 @@ export async function GET() {
     })),
     recentRequests,
     dailyUsage,
+    metrics: {
+      requestsToday,
+      requestsThisWeek,
+      requestsThisMonth: usage.used,
+      remainingCredits: usage.remaining,
+      successRate,
+    },
   });
 }

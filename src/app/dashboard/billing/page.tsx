@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
 import { Check } from "lucide-react";
 import { DashboardShell } from "@/components/layout/dashboard-shell";
+import { useDashboardUser } from "@/components/providers/dashboard-user-provider";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -24,14 +24,13 @@ const plans: Array<{
 ];
 
 export default function BillingPage() {
-  const [user, setUser] = useState<{ plan: Plan } | null>(null);
+  const contextUser = useDashboardUser();
   const [loading, setLoading] = useState<string | null>(null);
+  const [portalLoading, setPortalLoading] = useState(false);
 
-  useEffect(() => {
-    fetch("/api/auth/me")
-      .then((r) => r.json())
-      .then((d) => setUser(d.user));
-  }, []);
+  const user = contextUser
+    ? { plan: contextUser.plan as Plan, stripeCustomerId: contextUser.stripeCustomerId }
+    : null;
 
   async function upgrade(plan: Plan) {
     if (plan === "FREE" || plan === "ENTERPRISE") return;
@@ -46,6 +45,15 @@ export default function BillingPage() {
     if (data.url) window.location.href = data.url;
   }
 
+  async function openPortal() {
+    setPortalLoading(true);
+    const res = await fetch("/api/stripe/portal", { method: "POST" });
+    const data = await res.json();
+    setPortalLoading(false);
+    if (data.url) window.location.href = data.url;
+    else alert(data.error || "Unable to open billing portal");
+  }
+
   return (
     <DashboardShell
       title="Billing & Plans"
@@ -55,21 +63,23 @@ export default function BillingPage() {
           : "Choose the plan that fits your business"
       }
     >
+      {user && user.plan !== "FREE" && (
+        <div className="mb-6">
+          <Button variant="outline" onClick={openPortal} disabled={portalLoading}>
+            {portalLoading ? "Opening..." : "Manage Subscription"}
+          </Button>
+        </div>
+      )}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {plans.map((plan, i) => (
-          <motion.div
+        {plans.map((plan) => (
+          <Card
             key={plan.id}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.08 }}
+            className={`relative h-full ${
+              plan.popular
+                ? "border-primary/50 shadow-lg shadow-primary/10 ring-1 ring-primary/20"
+                : ""
+            }`}
           >
-            <Card
-              className={`relative h-full ${
-                plan.popular
-                  ? "border-primary/50 shadow-lg shadow-primary/10 ring-1 ring-primary/20"
-                  : ""
-              }`}
-            >
               {plan.popular && (
                 <Badge className="absolute -top-3 left-1/2 -translate-x-1/2" variant="accent">
                   Most Popular
@@ -108,8 +118,7 @@ export default function BillingPage() {
                   </Button>
                 )}
               </CardContent>
-            </Card>
-          </motion.div>
+          </Card>
         ))}
       </div>
     </DashboardShell>

@@ -3,9 +3,9 @@ import type {
   DiamondClarity,
   DiamondColor,
   DiamondCut,
-  Trend,
 } from "@prisma/client";
 import type { ValuationInput, ValuationResult } from "@/types";
+import { trendService } from "@/services/trend.service";
 
 const BASE_PRICE_PER_CARAT = 5000;
 
@@ -93,14 +93,11 @@ function calculateConfidence(input: ValuationInput): number {
   return Math.min(99, Math.max(50, confidence));
 }
 
-function calculateTrend(input: ValuationInput): Trend {
-  const score =
-    (COLOR_MULTIPLIERS[input.color as DiamondColor] || 1) *
-    (CLARITY_MULTIPLIERS[input.clarity as DiamondClarity] || 1);
-
-  if (score >= 1.4) return "UP";
-  if (score <= 0.9) return "DOWN";
-  return "STABLE";
+function calculateTrend(input: ValuationInput) {
+  return trendService.calculateSpecTrend(
+    input.color as DiamondColor,
+    input.clarity as DiamondClarity
+  );
 }
 
 function calculateInvestmentScore(

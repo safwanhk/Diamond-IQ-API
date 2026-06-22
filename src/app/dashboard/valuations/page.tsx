@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { Gem, Search, TrendingUp, Filter } from "lucide-react";
 import { DashboardShell } from "@/components/layout/dashboard-shell";
 import { Card, CardContent } from "@/components/ui/card";
@@ -84,15 +83,9 @@ export default function ValuationsPage() {
         </Card>
       ) : (
         <div className="space-y-3">
-          {filtered.map((v, i) => (
-            <motion.div
-              key={v.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.03 }}
-            >
-              <Card className="transition-all hover:border-primary/20 hover:shadow-md">
-                <CardContent className="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between">
+          {filtered.map((v) => (
+            <Card key={v.id}>
+              <CardContent className="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex items-center gap-4">
                     <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10">
                       <Gem className="h-5 w-5 text-primary" />
@@ -119,8 +112,7 @@ export default function ValuationsPage() {
                     </Badge>
                   </div>
                 </CardContent>
-              </Card>
-            </motion.div>
+            </Card>
           ))}
         </div>
       )}

@@ -33,6 +33,32 @@ export class ApiKeyRepository {
     });
   }
 
+  async delete(id: string, userId: string) {
+    return prisma.apiKey.deleteMany({
+      where: { id, userId },
+    });
+  }
+
+  async rotate(id: string, userId: string) {
+    const existing = await prisma.apiKey.findFirst({
+      where: { id, userId, active: true },
+    });
+    if (!existing) return null;
+
+    await prisma.apiKey.update({
+      where: { id },
+      data: { active: false },
+    });
+
+    return prisma.apiKey.create({
+      data: {
+        userId,
+        key: generateApiKey(),
+        name: existing.name,
+      },
+    });
+  }
+
   async updateLastUsed(id: string) {
     return prisma.apiKey.update({
       where: { id },

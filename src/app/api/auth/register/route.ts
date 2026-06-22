@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { signToken } from "@/lib/auth";
 import { userRepository } from "@/repositories/user.repository";
+import { apiKeyRepository } from "@/repositories/api-key.repository";
 import { registerSchema } from "@/types";
 
 export async function POST(request: NextRequest) {
@@ -31,6 +32,8 @@ export async function POST(request: NextRequest) {
       password: hashedPassword,
     });
 
+    const apiKey = await apiKeyRepository.create(user.id, "Default");
+
     const token = await signToken({
       userId: user.id,
       email: user.email,
@@ -45,6 +48,8 @@ export async function POST(request: NextRequest) {
         role: user.role,
         plan: user.plan,
       },
+      apiKey: apiKey.key,
+      onboarding: true,
     });
 
     response.cookies.set("auth_token", token, {

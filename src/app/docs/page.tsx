@@ -15,7 +15,7 @@ const sdkExamples = {
   javascript: `const response = await fetch('https://api.diamondiq.com/api/v1/valuation', {
   method: 'POST',
   headers: {
-    'X-API-Key': 'diq_your_api_key',
+    'X-API-Key': 'sk_live_your_api_key',
     'Content-Type': 'application/json',
   },
   body: JSON.stringify({
@@ -50,7 +50,7 @@ const res = await fetch('/api/v1/valuation', {
 
 response = requests.post(
     "https://api.diamondiq.com/api/v1/valuation",
-    headers={"X-API-Key": "diq_your_api_key"},
+    headers={"X-API-Key": "sk_live_your_api_key"},
     json={
         "carat": 1.2,
         "color": "D",
@@ -67,7 +67,7 @@ curl_setopt_array($ch, [
     CURLOPT_POST => true,
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_HTTPHEADER => [
-        'X-API-Key: diq_your_api_key',
+        'X-API-Key: sk_live_your_api_key',
         'Content-Type: application/json',
     ],
     CURLOPT_POSTFIELDS => json_encode([
@@ -80,6 +80,16 @@ curl_setopt_array($ch, [
 ]);
 $response = json_decode(curl_exec($ch), true);
 echo "Estimated: $" . number_format($response['estimatedPrice']);`,
+  curl: `curl -X POST https://api.diamondiq.com/api/v1/valuation \\
+  -H "X-API-Key: sk_live_your_api_key" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "carat": 1.2,
+    "color": "D",
+    "clarity": "VVS1",
+    "cut": "Excellent",
+    "certificate": "GIA"
+  }'`,
 };
 
 export default function DocsPage() {
@@ -92,11 +102,12 @@ export default function DocsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="relative min-h-screen bg-background">
+      <div className="pointer-events-none absolute inset-0 grid-bg opacity-30" />
       <Navbar />
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-slate-900">API Documentation</h1>
-        <p className="mt-2 text-slate-600">
+      <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <h1 className="text-3xl font-bold text-foreground">API Documentation</h1>
+        <p className="mt-2 text-muted-foreground">
           Complete reference for the DiamondIQ REST API
         </p>
 
@@ -112,10 +123,10 @@ export default function DocsPage() {
               <CardHeader>
                 <CardTitle>Authentication</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4 text-sm text-slate-600">
-                <p>All API requests require an API key passed via the <code className="rounded bg-slate-100 px-1">X-API-Key</code> header.</p>
-                <pre className="overflow-x-auto rounded-lg bg-slate-900 p-4 text-emerald-400">
-                  X-API-Key: diq_your_api_key_here
+              <CardContent className="space-y-4 text-sm text-muted-foreground">
+                <p>All API requests require an API key passed via the <code className="rounded bg-muted px-1 text-foreground">X-API-Key</code> header.</p>
+                <pre className="overflow-x-auto rounded-lg border border-border bg-background p-4 text-accent">
+                  X-API-Key: sk_live_your_api_key_here
                 </pre>
               </CardContent>
             </Card>
@@ -132,14 +143,14 @@ export default function DocsPage() {
                   { method: "GET", path: "/api/v1/account/usage", desc: "API usage stats" },
                   { method: "POST", path: "/api/v1/apikeys", desc: "Create API key (JWT)" },
                 ].map((ep) => (
-                  <div key={ep.path} className="flex items-center gap-4 rounded-lg border p-3">
-                    <span className={`rounded px-2 py-0.5 text-xs font-bold ${
-                      ep.method === "POST" ? "bg-emerald-100 text-emerald-700" : "bg-blue-100 text-blue-700"
+                  <div key={ep.path} className="flex flex-col gap-2 rounded-lg border border-border p-3 sm:flex-row sm:items-center sm:gap-4">
+                    <span className={`w-fit rounded px-2 py-0.5 text-xs font-bold ${
+                      ep.method === "POST" ? "bg-success/20 text-success" : "bg-primary/20 text-primary"
                     }`}>
                       {ep.method}
                     </span>
                     <code className="text-sm">{ep.path}</code>
-                    <span className="text-sm text-slate-500">{ep.desc}</span>
+                    <span className="text-sm text-muted-foreground">{ep.desc}</span>
                   </div>
                 ))}
               </CardContent>
@@ -163,10 +174,10 @@ export default function DocsPage() {
             {Object.entries(sdkExamples).map(([lang, code]) => (
               <Card key={lang}>
                 <CardHeader>
-                  <CardTitle className="capitalize">{lang}</CardTitle>
+                  <CardTitle className="capitalize">{lang === "curl" ? "cURL" : lang}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <pre className="overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-emerald-400">
+                  <pre className="overflow-x-auto rounded-lg border border-border bg-background p-4 text-sm text-accent">
                     {code}
                   </pre>
                 </CardContent>

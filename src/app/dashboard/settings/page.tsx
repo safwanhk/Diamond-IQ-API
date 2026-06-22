@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTheme } from "next-themes";
 import { Bell, Key, Shield, User } from "lucide-react";
 import { DashboardShell } from "@/components/layout/dashboard-shell";
+import { useDashboardUser } from "@/components/providers/dashboard-user-provider";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,22 +14,11 @@ import { Separator } from "@/components/ui/separator";
 
 export default function SettingsPage() {
   const { theme, setTheme } = useTheme();
-  const [user, setUser] = useState<{ name: string; email: string } | null>(null);
-  const [name, setName] = useState("");
+  const user = useDashboardUser();
+  const [name, setName] = useState(user?.name ?? "");
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [usageAlerts, setUsageAlerts] = useState(true);
   const [saving, setSaving] = useState(false);
-
-  useEffect(() => {
-    fetch("/api/auth/me")
-      .then((r) => r.json())
-      .then((d) => {
-        if (d.user) {
-          setUser(d.user);
-          setName(d.user.name);
-        }
-      });
-  }, []);
 
   async function handleSave() {
     setSaving(true);

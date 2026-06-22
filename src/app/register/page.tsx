@@ -37,7 +37,10 @@ export default function RegisterPage() {
       return;
     }
 
-    router.push("/dashboard");
+    if (data.apiKey) {
+      sessionStorage.setItem("onboarding_api_key", data.apiKey);
+    }
+    router.push("/dashboard/welcome");
   }
 
   return (

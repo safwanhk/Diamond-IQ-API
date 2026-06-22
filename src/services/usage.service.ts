@@ -56,6 +56,41 @@ export class UsageService {
     };
   }
 
+  async getTodayUsage(userId: string): Promise<number> {
+    const start = new Date();
+    start.setHours(0, 0, 0, 0);
+    return prisma.request.count({
+      where: { userId, createdAt: { gte: start } },
+    });
+  }
+
+  async getWeekUsage(userId: string): Promise<number> {
+    const start = new Date();
+    start.setDate(start.getDate() - 7);
+    return prisma.request.count({
+      where: { userId, createdAt: { gte: start } },
+    });
+  }
+
+  async getSuccessRate(userId: string): Promise<number> {
+    const start = new Date();
+    start.setMonth(start.getMonth() - 1);
+    const [total, successful] = await Promise.all([
+      prisma.request.count({
+        where: { userId, createdAt: { gte: start } },
+      }),
+      prisma.request.count({
+        where: {
+          userId,
+          createdAt: { gte: start },
+          statusCode: { gte: 200, lt: 400 },
+        },
+      }),
+    ]);
+    if (total === 0) return 100;
+    return Math.round((successful / total) * 100);
+  }
+
   async getDailyUsage(userId: string, days = 30) {
     const start = new Date();
     start.setDate(start.getDate() - days);

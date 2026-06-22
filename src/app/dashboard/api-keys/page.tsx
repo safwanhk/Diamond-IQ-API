@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { Copy, Plus, Check, Key } from "lucide-react";
+import { Copy, Plus, Check, Key, Trash2, RefreshCw } from "lucide-react";
+import { EmptyState } from "@/components/ui/empty-state";
 import { DashboardShell } from "@/components/layout/dashboard-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,10 +26,14 @@ export default function ApiKeysPage() {
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  async function loadKeys() {
+    const keysRes = await fetch("/api/v1/apikeys");
+    const keysData = await keysRes.json();
+    setKeys(keysData.data || []);
+  }
+
   useEffect(() => {
-    fetch("/api/v1/apikeys")
-      .then((r) => r.json())
-      .then((keysData) => setKeys(keysData.data || []));
+    loadKeys();
   }, []);
 
   async function createKey() {
@@ -45,9 +49,26 @@ export default function ApiKeysPage() {
     if (res.ok) {
       setCreatedKey(data.key);
       setNewKeyName("");
-      const keysRes = await fetch("/api/v1/apikeys");
-      const keysData = await keysRes.json();
-      setKeys(keysData.data || []);
+      await loadKeys();
+    }
+  }
+
+  async function deleteKey(id: string) {
+    if (!confirm("Delete this API key? This cannot be undone.")) return;
+    const res = await fetch(`/api/v1/apikeys/${id}`, { method: "DELETE" });
+    if (res.ok) await loadKeys();
+  }
+
+  async function rotateKey(id: string) {
+    const res = await fetch(`/api/v1/apikeys/${id}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "rotate" }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      setCreatedKey(data.key);
+      await loadKeys();
     }
   }
 
@@ -60,9 +81,8 @@ export default function ApiKeysPage() {
   return (
     <DashboardShell title="API Keys" description="Manage your API authentication keys">
       {createdKey && (
-        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-          <Card className="mb-6 border-success/30 bg-success/5">
-            <CardContent className="pt-6">
+        <Card className="mb-6 border-success/30 bg-success/5">
+          <CardContent className="pt-6">
               <p className="mb-2 text-sm font-medium text-success">
                 New API key created. Copy it now — you won&apos;t see it again.
               </p>
@@ -75,8 +95,7 @@ export default function ApiKeysPage() {
                 </Button>
               </div>
             </CardContent>
-          </Card>
-        </motion.div>
+        </Card>
       )}
 
       <Card className="mb-8">
@@ -105,18 +124,16 @@ export default function ApiKeysPage() {
         <CardContent>
           <div className="space-y-3">
             {keys.length === 0 ? (
-              <div className="flex flex-col items-center py-12 text-center">
-                <Key className="mb-3 h-10 w-10 text-muted-foreground/30" />
-                <p className="text-sm text-muted-foreground">No API keys yet</p>
-              </div>
+              <EmptyState
+                icon={Key}
+                title="No API keys yet"
+                description="Create your first key to start making authenticated API requests."
+              />
             ) : (
-              keys.map((key, i) => (
-                <motion.div
+              keys.map((key) => (
+                <div
                   key={key.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="flex flex-col gap-3 rounded-lg border border-border p-4 transition-colors hover:bg-muted/30 sm:flex-row sm:items-center sm:justify-between"
+                  className="flex flex-col gap-3 rounded-lg border border-border p-4 sm:flex-row sm:items-center sm:justify-between"
                 >
                   <div>
                     <p className="font-medium">{key.name}</p>
@@ -126,10 +143,22 @@ export default function ApiKeysPage() {
                       {key.lastUsed && ` · Last used ${formatDate(key.lastUsed)}`}
                     </p>
                   </div>
-                  <Badge variant={key.active ? "success" : "secondary"}>
-                    {key.active ? "Active" : "Inactive"}
-                  </Badge>
-                </motion.div>
+                  <div className="flex items-center gap-2">
+                    <Badge variant={key.active ? "success" : "secondary"}>
+                      {key.active ? "Active" : "Inactive"}
+                    </Badge>
+                    {key.active && (
+                      <>
+                        <Button variant="ghost" size="icon" onClick={() => rotateKey(key.id)} title="Rotate key">
+                          <RefreshCw className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" onClick={() => deleteKey(key.id)} title="Delete key">
+                          <Trash2 className="h-4 w-4 text-destructive" />
+                        </Button>
+                      </>
+                    )}
+                  </div>
+                </div>
               ))
             )}
           </div>

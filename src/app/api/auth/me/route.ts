@@ -20,6 +20,7 @@ export async function GET() {
       email: user.email,
       role: user.role,
       plan: user.plan,
+      stripeCustomerId: user.stripeCustomerId,
     },
   });
 }
